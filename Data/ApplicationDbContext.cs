@@ -28,7 +28,7 @@
                 .HasForeignKey(ba => ba.AuthorId);
             base.OnModelCreating(modelBuilder);
 
-            
+            modelBuilder.Seed();
         }
     }
 }
