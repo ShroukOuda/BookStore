@@ -13,8 +13,8 @@
                      Biography = "Software engineer and author, also known as Uncle Bob. Known for advocating software design principles and clean code practices.",
                      BirthDate = new DateTime(1952, 12, 5),
                      Nationality = "American",
-                     CreatedAt = DateTime.UtcNow,
-                     UpdatedAt = DateTime.UtcNow
+                     CreatedAt = new DateTime(2025, 7, 2),
+                     UpdatedAt = new DateTime(2025, 7, 2)
                  },
                 new Author
                 {
@@ -24,8 +24,8 @@
                     Biography = "Web designer and developer who has spent over a decade helping people learn about web design and programming.",
                     BirthDate = new DateTime(1970, 3, 15),
                     Nationality = "British",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Author
                 {
@@ -35,8 +35,8 @@
                     Biography = "JavaScript developer and trainer, known for the You Don't Know JS book series and open source contributions.",
                     BirthDate = new DateTime(1980, 7, 12),
                     Nationality = "American",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Author
                 {
@@ -46,8 +46,8 @@
                     Biography = "Software engineer and author, former Google, Microsoft, and Apple employee. Founder of CareerCup.",
                     BirthDate = new DateTime(1982, 9, 20),
                     Nationality = "American",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Author
                 {
@@ -57,8 +57,8 @@
                     Biography = "Software developer and author, co-author of The Pragmatic Programmer and founding member of the Agile Alliance.",
                     BirthDate = new DateTime(1964, 8, 3),
                     Nationality = "American",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Author
                 {
@@ -68,8 +68,8 @@
                     Biography = "Software developer and author, co-author of The Pragmatic Programmer and advocate for pragmatic software development.",
                     BirthDate = new DateTime(1956, 11, 28),
                     Nationality = "British",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Author
                 {
@@ -79,8 +79,8 @@
                     Biography = "Computer scientist, author, and former CTO of Disney Online, known for Head First book series.",
                     BirthDate = new DateTime(1965, 4, 18),
                     Nationality = "American",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Author
                 {
@@ -90,8 +90,8 @@
                     Biography = "Software developer and co-author of several Head First books, specializing in web development and programming education.",
                     BirthDate = new DateTime(1970, 2, 14),
                     Nationality = "American",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Author
                 {
@@ -101,8 +101,8 @@
                     Biography = "British software developer, author and international speaker on software development, known for refactoring and enterprise software design.",
                     BirthDate = new DateTime(1963, 12, 18),
                     Nationality = "British",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Author
                 {
@@ -112,8 +112,8 @@
                     Biography = "Multi-award winning CTO, researcher and author, known for The Phoenix Project and The DevOps Handbook.",
                     BirthDate = new DateTime(1967, 10, 8),
                     Nationality = "American",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 }
             );
         }

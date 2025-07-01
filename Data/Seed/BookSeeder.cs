@@ -18,8 +18,8 @@
                      Pages = 464,
                      Language = "English",
                      CategoryId = 1,
-                     CreatedAt = DateTime.UtcNow,
-                     UpdatedAt = DateTime.UtcNow
+                     CreatedAt = new DateTime(2025, 7, 2),
+                     UpdatedAt = new DateTime(2025, 7, 2)
                  },
                 new Book
                 {
@@ -34,8 +34,8 @@
                     Pages = 490,
                     Language = "English",
                     CategoryId = 2,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Book
                 {
@@ -50,8 +50,8 @@
                     Pages = 98,
                     Language = "English",
                     CategoryId = 2,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Book
                 {
@@ -66,8 +66,8 @@
                     Pages = 696,
                     Language = "English",
                     CategoryId = 1,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Book
                 {
@@ -82,8 +82,8 @@
                     Pages = 352,
                     Language = "English",
                     CategoryId = 6,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Book
                 {
@@ -98,8 +98,8 @@
                     Pages = 672,
                     Language = "English",
                     CategoryId = 6,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Book
                 {
@@ -114,8 +114,8 @@
                     Pages = 176,
                     Language = "English",
                     CategoryId = 2,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Book
                 {
@@ -130,8 +130,8 @@
                     Pages = 312,
                     Language = "English",
                     CategoryId = 3,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Book
                 {
@@ -146,8 +146,8 @@
                     Pages = 370,
                     Language = "English",
                     CategoryId = 4,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Book
                 {
@@ -162,8 +162,8 @@
                     Pages = 432,
                     Language = "English",
                     CategoryId = 5,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Book
                 {
@@ -178,8 +178,8 @@
                     Pages = 448,
                     Language = "English",
                     CategoryId = 6,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 },
                 new Book
                 {
@@ -194,8 +194,8 @@
                     Pages = 520,
                     Language = "English",
                     CategoryId = 3,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = new DateTime(2025, 7, 2),
+                    UpdatedAt = new DateTime(2025, 7, 2)
                 }
             );
         }
