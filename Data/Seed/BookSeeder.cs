@@ -185,7 +185,7 @@
                 {
                     Id = 12,
                     Title = "iOS Development with Swift",
-                    ISBN = "9781617295071",
+                    ISBN = "9780135264027",
                     Price = 49.99m,
                     Description = "Complete guide to iOS app development using Swift, covering UI design, data management, and app store deployment.",
                     StockQuantity = 20,
