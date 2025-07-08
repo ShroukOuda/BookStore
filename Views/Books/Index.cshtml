@@ -1,0 +1,62 @@
+﻿@model List<BookStore.Models.Book>
+@{ 
+	ViewData["Title"] = "Books"; 
+}
+
+<a asp-action="Create" class="btn btn-success btn-lg rounded-pill shadow d-inline-flex align-items-center gap-2 px-4 py-2">
+	<i class="bi bi-plus-circle"></i>
+    Add New Book
+</a>
+
+<h2 class="mb-4">Books Catalog</h2>
+
+<table class="table table-hover table-bordered">
+    <thead class="table-success">
+        <tr>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Authors</th>
+            <th>Stock</th>
+            <th>Pages</th>
+            <th>Language</th>
+            <th>Published</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.ISBN</td>
+                <td>@book.Price.ToString("C")</td>
+                <td>@book.Category?.Name</td>
+                <td>
+                    @foreach (var author in book.BookAuthors.Select(ba => ba.Author))
+                    {
+                        <span>@author.FirstName @author.LastName</span>
+
+                        <br />
+                    }
+                </td>
+                <td>@book.StockQuantity</td>
+                <td>@book.Pages</td>
+                <td>@book.Language</td>
+                <td>@book.PublishedDate.ToString("yyyy-MM-dd")</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(book.ImageUrl))
+                    {
+                        <img src="@book.ImageUrl" alt="Cover" width="60" />
+                    }
+                    else
+                    {
+                        <span>No Image</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
