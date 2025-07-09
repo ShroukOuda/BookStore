@@ -11,6 +11,10 @@ namespace BookStore
             builder.Services.AddDbContext<Data.ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+            builder.Services.AddScoped<IAuthorsService, AuthorsService>();
+            builder.Services.AddScoped<IBooksService, BooksService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
