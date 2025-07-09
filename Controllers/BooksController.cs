@@ -1,24 +1,22 @@
-﻿using BookStore.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-
-namespace BookStore.Controllers
+﻿namespace BookStore.Controllers
 {
 	public class BooksController : Controller
 	{
-		private readonly ApplicationDbContext _context;
-        public BooksController(ApplicationDbContext context)
+        private readonly ICategoriesService _categoriesService;
+
+        private readonly IAuthorsService _authorsService;
+
+        private readonly IBooksService _booksService;
+        public BooksController(ICategoriesService categoriesService, IAuthorsService authorsService, IBooksService booksService)
 		{
-			_context = context;
-		}
+            _categoriesService = categoriesService;
+            _authorsService = authorsService;
+            _booksService = booksService;
+        }
 
 		public IActionResult Index()
 		{
-			var books = _context.Books
-				.Include(c => c.Category)
-				.Include(b => b.BookAuthors)
-					.ThenInclude(ba => ba.Author)
-				.ToList();
+			var books = _booksService.GetAllBooks();
 			return View(books);
 		}
 
@@ -27,22 +25,10 @@ namespace BookStore.Controllers
 		{
             var viewModel = new CreateBookFromViewModel
             {
-                Categories = _context.Categories.Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.Name
-                })
-				.OrderBy(c => c.Text)
-                .ToList(),
+                Categories = _categoriesService.GetSelectList(),
 
-                Authors = _context.Authors.Select(a => new SelectListItem
-                {
-                    Value = a.Id.ToString(),
-                    Text = a.FullName
-                }),
-                Pages = 0,
-                StockQuantity = 0,
-                PublishedDate = DateTime.Now
+                Authors = _authorsService.GetSelectList()
+
             };
 
             return View(viewModel);
@@ -52,7 +38,19 @@ namespace BookStore.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateBookFromViewModel viewModel)
         {
-            return View(viewModel);
+            if (!ModelState.IsValid)
+            {
+                viewModel.Categories = _categoriesService.GetSelectList();
+
+                viewModel.Authors = _authorsService.GetSelectList();
+
+                return View(viewModel);
+                
+            }
+
+            _booksService.Create(viewModel);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
