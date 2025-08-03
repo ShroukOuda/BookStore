@@ -1,28 +1,41 @@
 ﻿namespace BookStore.Controllers
 {
-	public class BooksController : Controller
-	{
+    public class BooksController : Controller
+    {
         private readonly ICategoriesService _categoriesService;
 
         private readonly IAuthorsService _authorsService;
 
         private readonly IBooksService _booksService;
         public BooksController(ICategoriesService categoriesService, IAuthorsService authorsService, IBooksService booksService)
-		{
+        {
             _categoriesService = categoriesService;
             _authorsService = authorsService;
             _booksService = booksService;
         }
 
-		public IActionResult Index()
-		{
-			var books = _booksService.GetAllBooks();
-			return View(books);
-		}
+        [HttpGet]
+        public IActionResult Index()
+        {
+            var books = _booksService.GetAllBooks();
+            return View(books);
+        }
 
-		[HttpGet]
-		public IActionResult Create()
-		{
+        [HttpGet]
+        public IActionResult GetBookDetail(int id)
+        {
+            var book = _booksService.GetBookDetail(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            return View(book);
+        }
+
+
+        [HttpGet]
+        public IActionResult Create()
+        {
             var viewModel = new CreateBookFromViewModel
             {
                 Categories = _categoriesService.GetSelectList(),
@@ -32,7 +45,7 @@
             };
 
             return View(viewModel);
-		}
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -45,12 +58,14 @@
                 viewModel.Authors = _authorsService.GetSelectList();
 
                 return View(viewModel);
-                
+
             }
 
             _booksService.Create(viewModel);
 
             return RedirectToAction(nameof(Index));
         }
+
+
     }
 }
