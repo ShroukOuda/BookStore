@@ -24,6 +24,14 @@
                 .ToList();
         }
 
+        public Book GetBookDetail(int id)
+        {
+            return _context.Books
+                .Include(b => b.Category)
+                .Include(b => b.BookAuthors)
+                    .ThenInclude(ba => ba.Author)
+                .FirstOrDefault(b => b.Id == id);
+        }
         public void Create(CreateBookFromViewModel model)
         {
             var imageName = $"{Guid.NewGuid()}{Path.GetExtension(model.ImageUrl.FileName)}";
