@@ -8,4 +8,5 @@ global using Microsoft.AspNetCore.Mvc.Rendering;
 global using BookStore.Services;
 global using BookStore.ViewModels;
 global using Microsoft.AspNetCore.Mvc;
+global using BookStore.Settings;
 
