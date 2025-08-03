@@ -1,4 +1,6 @@
-﻿namespace BookStore.Services
+﻿using BookStore.Settings;
+
+namespace BookStore.Services
 {
     public class BooksService : IBooksService
     {
@@ -11,7 +13,7 @@
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
-            _imagesPath = $"{_webHostEnvironment.WebRootPath}/images/books";
+            _imagesPath = $"{_webHostEnvironment.WebRootPath}{FileSettings.ImagesPath}";
 
         }
 
