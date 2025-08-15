@@ -1,4 +1,6 @@
-﻿namespace BookStore.ViewModels
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace BookStore.ViewModels
 {
     public class CreateBookFromViewModel
     {
@@ -17,8 +19,6 @@
 
         public int StockQuantity { get; set; }
 
-        [AllowedExtensions(FileSettings.AllowedExtensions),
-            MaxFileSize(FileSettings.MaxFileSizeInBytes)]
         public IFormFile ImageUrl { get; set; }
 
         public DateTime PublishedDate { get; set; }
