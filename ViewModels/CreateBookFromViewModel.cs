@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using BookStore.Attributes;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookStore.ViewModels
 {
@@ -19,6 +20,8 @@ namespace BookStore.ViewModels
 
         public int StockQuantity { get; set; }
 
+        [AllowedExtensions(FileSettings.AllowedExtensions)]
+        [MaxFileSize(FileSettings.MaxFileSizeInBytes)]
         public IFormFile ImageUrl { get; set; }
 
         public DateTime PublishedDate { get; set; }
