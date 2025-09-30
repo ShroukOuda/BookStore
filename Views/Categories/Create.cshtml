@@ -1,0 +1,289 @@
+@model CategoryFormViewModel
+
+@{
+    ViewData["Title"] = "Add Category";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 col-xl-6">
+            <!-- Header Section -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-success bg-gradient rounded-circle p-2 me-3">
+                            <i class="bi bi-tags text-white fs-5"></i>
+                        </div>
+                        <div>
+                            <h1 class="mb-1 fw-bold text-dark">Add New Category</h1>
+                            <p class="text-muted mb-0">Create a new category to organize your books</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light border-0 py-3">
+                    <h5 class="mb-0 fw-semibold text-dark">
+                        <i class="bi bi-info-circle me-2 text-success"></i>
+                        Category Details
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <div class="row g-4">
+                            <!-- Category Name -->
+                            <div class="col-md-6">
+                                <label asp-for="Name" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-tag me-1 text-success"></i>
+                                    Category Name
+                                </label>
+                                <input asp-for="Name" class="form-control form-control-lg border-2" 
+                                       placeholder="e.g., Fiction, Science, Biography..." />
+                                <div class="form-text">
+                                    <small class="text-muted">
+                                        <i class="bi bi-lightbulb me-1"></i>
+                                        Choose a clear, descriptive name for easy identification
+                                    </small>
+                                </div>
+                                <span asp-validation-for="Name" class="invalid-feedback d-block"></span>
+                            </div>
+
+                            <!-- Category Description -->
+                            <div class="col-md-6">
+                                <label asp-for="Description" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-chat-text me-1 text-success"></i>
+                                    Description
+                                </label>
+                                <textarea asp-for="Description" class="form-control border-2" rows="4" 
+                                          placeholder="Describe what types of books belong in this category..."></textarea>
+                                <div class="form-text">
+                                    <small class="text-muted">
+                                        <i class="bi bi-info-circle me-1"></i>
+                                        Optional: Help others understand this category's purpose
+                                    </small>
+                                </div>
+                                <span asp-validation-for="Description" class="invalid-feedback d-block"></span>
+                            </div>
+                        </div>
+
+                        <!-- Category Preview -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="alert alert-success border-0 bg-success bg-opacity-10">
+                                    <h6 class="alert-heading fw-semibold text-success">
+                                        <i class="bi bi-eye me-1"></i>
+                                        Category Preview:
+                                    </h6>
+                                    <div class="d-flex align-items-center">
+                                        <span class="badge bg-success bg-gradient fs-6 px-3 py-2" id="categoryPreview">
+                                            <i class="bi bi-tag me-1"></i>
+                                            <span id="previewName">New Category</span>
+                                        </span>
+                                        <span class="ms-3 text-muted small" id="previewDescription">Category description will appear here</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card border-0 bg-light">
+                                    <div class="card-body p-3">
+                                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-between align-items-center">
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <button type="submit" class="btn btn-success btn-lg px-4">
+                                                    <i class="bi bi-plus-circle me-2"></i>
+                                                    Create Category
+                                                </button>
+                                                <button type="button" class="btn btn-outline-danger btn-lg px-4" onclick="cancelForm()">
+                                                    <i class="bi bi-x-circle me-2"></i>
+                                                    Cancel
+                                                </button>
+                                                <button type="reset" class="btn btn-outline-secondary btn-lg px-4" onclick="resetPreview()">
+                                                    <i class="bi bi-arrow-clockwise me-2"></i>
+                                                    Clear Form
+                                                </button>
+                                            </div>
+                                            <div class="text-muted small">
+                                                <i class="bi bi-info-circle me-1"></i>
+                                                All fields are optional except name
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Tips Section -->
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-body p-4">
+                    <h6 class="fw-semibold text-dark mb-3">
+                        <i class="bi bi-lightbulb text-warning me-2"></i>
+                        Category Creation Tips
+                    </h6>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-2">
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                </div>
+                                <div>
+                                    <strong class="small">Be Specific:</strong>
+                                    <small class="text-muted d-block">Use clear, descriptive names like "Science Fiction" rather than just "Books"</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-2">
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                </div>
+                                <div>
+                                    <strong class="small">Stay Consistent:</strong>
+                                    <small class="text-muted d-block">Follow similar naming patterns for easier organization</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-2">
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                </div>
+                                <div>
+                                    <strong class="small">Avoid Duplicates:</strong>
+                                    <small class="text-muted d-block">Check existing categories before creating new ones</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-2">
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                </div>
+                                <div>
+                                    <strong class="small">Plan Ahead:</strong>
+                                    <small class="text-muted d-block">Think about how books will be grouped and searched</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nameInput = document.querySelector('input[name="Name"]');
+            const descriptionInput = document.querySelector('textarea[name="Description"]');
+            const previewName = document.getElementById('previewName');
+            const previewDescription = document.getElementById('previewDescription');
+
+            // Store original state for change detection
+            let hasChanges = false;
+
+            // Update preview as user types
+            nameInput.addEventListener('input', function() {
+                const value = this.value.trim();
+                previewName.textContent = value || 'New Category';
+                hasChanges = this.value.length > 0 || descriptionInput.value.length > 0;
+            });
+
+            descriptionInput.addEventListener('input', function() {
+                const value = this.value.trim();
+                previewDescription.textContent = value || 'Category description will appear here';
+                hasChanges = this.value.length > 0 || nameInput.value.length > 0;
+            });
+
+            // Cancel form functionality
+            window.cancelForm = function() {
+                if (hasChanges) {
+                    if (confirm('You have unsaved changes. Are you sure you want to cancel and lose all changes?')) {
+                        window.location.href = '@Url.Action("Index")';
+                    }
+                } else {
+                    window.location.href = '@Url.Action("Index")';
+                }
+            };
+
+            // Reset preview functionality
+            window.resetPreview = function() {
+                setTimeout(() => {
+                    previewName.textContent = 'New Category';
+                    previewDescription.textContent = 'Category description will appear here';
+                    hasChanges = false;
+                }, 50); // Small delay to allow form reset to complete
+            };
+
+            // Add visual feedback for form changes
+            [nameInput, descriptionInput].forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.value.trim()) {
+                        this.classList.add('border-success');
+                        this.classList.remove('border-danger');
+                    } else {
+                        this.classList.remove('border-success', 'border-danger');
+                    }
+                });
+            });
+
+            // Form submission handler
+            document.querySelector('form').addEventListener('submit', function(e) {
+                const name = nameInput.value.trim();
+                if (!name) {
+                    e.preventDefault();
+                    nameInput.classList.add('border-danger');
+                    nameInput.focus();
+                    
+                    // Show error message
+                    const errorSpan = nameInput.nextElementSibling.nextElementSibling; // Skip form-text
+                    if (errorSpan && errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan.textContent = 'Category name is required.';
+                        errorSpan.style.display = 'block';
+                    }
+                    return false;
+                }
+            });
+
+            // Real-time validation
+            nameInput.addEventListener('blur', function() {
+                if (!this.value.trim()) {
+                    this.classList.add('border-danger');
+                    const errorSpan = this.nextElementSibling.nextElementSibling;
+                    if (errorSpan && errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan.textContent = 'Category name is required.';
+                        errorSpan.style.display = 'block';
+                    }
+                } else {
+                    this.classList.remove('border-danger');
+                    this.classList.add('border-success');
+                    const errorSpan = this.nextElementSibling.nextElementSibling;
+                    if (errorSpan && errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan.style.display = 'none';
+                    }
+                }
+            });
+
+            // Prevent accidental navigation
+            window.addEventListener('beforeunload', function(e) {
+                if (hasChanges) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                    return '';
+                }
+            });
+        });
+    </script>
+}

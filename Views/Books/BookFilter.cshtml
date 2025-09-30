@@ -1,0 +1,73 @@
+@model BookFilterViewModel
+
+<div class="p-3 border rounded shadow-sm position-sticky" style="top: 1rem; max-height: 90vh; overflow-y: auto;">
+    <form asp-action="Index" method="get">
+        <!-- Search -->
+        <div class="mb-3">
+            <label for="searchQuery" class="form-label">Search</label>
+            <input type="text" 
+                   class="form-control" 
+                   id="searchQuery" 
+                   name="SearchQuery" 
+                   value="@Model.SearchQuery" 
+                   placeholder="Search by Title or ISBN..." />
+        </div>
+        <h5 class="fw-bold mb-3">Filter Books</h5>
+
+        <!-- Category -->
+        <div class="mb-3">
+            <label asp-for="CategoryId" class="form-label">Category</label>
+            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
+                <option value="">All</option>
+            </select>
+        </div>
+
+        <!-- Author -->
+        <div class="mb-3">
+            <label asp-for="AuthorId" class="form-label">Author</label>
+            <select asp-for="AuthorId" asp-items="ViewBag.Authors" class="form-select">
+                <option value="">All</option>
+            </select>
+        </div>
+
+        <!-- Language -->
+        <div class="mb-3">
+            <label asp-for="Language" class="form-label">Language</label>
+            <select asp-for="Language" class="form-select">
+                <option value="">All</option>
+                <option value="English">English</option>
+                <option value="Arabic">Arabic</option>
+                <option value="French">French</option>
+            </select>
+        </div>
+
+        <!-- Price -->
+        <div class="mb-3">
+            <label class="form-label">Price</label>
+            <select class="form-select" onchange="setPriceRange(this.value)">
+                <option value="">All</option>
+                <option value="low" selected="@(Model.MinPrice == 0 && Model.MaxPrice == 10)">Below $10</option>
+                <option value="avg" selected="@(Model.MinPrice == 10 && Model.MaxPrice == 25)">$10 - $25</option>
+                <option value="high" selected="@(Model.MinPrice == 25 && !Model.MaxPrice.HasValue)">Above $25</option>
+            </select>
+            <input type="hidden" name="MinPrice" id="minPrice" value="@Model.MinPrice"/>
+            <input type="hidden" name="MaxPrice" id="maxPrice" value="@Model.MaxPrice"/>
+        </div>
+
+        <!-- Pages -->
+        <div class="mb-3">
+            <label class="form-label">Pages</label>
+            <select class="form-select" onchange="setPageRange(this.value)">
+                <option value="">All</option>
+                <option value="low" selected="@(Model.MinPages == 0 && Model.MaxPages == 150)">Below 150</option>
+                <option value="avg" selected="@(Model.MinPages == 150 && Model.MaxPages == 300)">150 - 300</option>
+                <option value="high" selected="@(Model.MinPages == 300 && !Model.MaxPages.HasValue)">Above 300</option>
+            </select>
+            <input type="hidden" name="MinPages" id="minPages" value="@Model.MinPages"/>
+            <input type="hidden" name="MaxPages" id="maxPages" value="@Model.MaxPages"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+        <a asp-action="Index" class="btn btn-outline-secondary w-100 mt-2">Clear</a>
+    </form>
+</div>

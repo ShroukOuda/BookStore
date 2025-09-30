@@ -4,125 +4,391 @@
     ViewData["Title"] = "Add Book";
 }
 
-<h2 class="mb-4">
-    <i class="bi bi-plus-circle"></i>
-    Add New Book
-</h2>
-
-<form asp-action="Create" method="post" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label asp-for="ISBN" class="control-label"></label>
-                    <input asp-for="ISBN" class="form-control" />
-                    <span asp-validation-for="ISBN" class="text-danger"></span>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label asp-for="Price" class="control-label"></label>
-                    <input asp-for="Price" class="form-control" type="number" step="0.01" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+            <!-- Header Section -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary bg-gradient rounded-circle p-2 me-3">
+                            <i class="bi bi-book text-white fs-5"></i>
+                        </div>
+                        <div>
+                            <h1 class="mb-1 fw-bold text-dark">Add New Book</h1>
+                            <p class="text-muted mb-0">Fill in the details to add a new book to your collection</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label asp-for="StockQuantity" class="control-label"></label>
-                    <input asp-for="StockQuantity" class="form-control" type="number" />
-                    <span asp-validation-for="StockQuantity" class="text-danger"></span>
+            <form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <div class="row g-4">
+                    <!-- Left Column - Book Details -->
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-header bg-light border-0 py-3">
+                                <h5 class="mb-0 fw-semibold text-dark">
+                                    <i class="bi bi-info-circle me-2 text-primary"></i>
+                                    Book Information
+                                </h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <!-- Title -->
+                                <div class="mb-4">
+                                    <label asp-for="Title" class="form-label fw-semibold text-dark">
+                                        <i class="bi bi-type me-1 text-primary"></i>
+                                        Book Title
+                                    </label>
+                                    <input asp-for="Title" class="form-control form-control-lg border-2" 
+                                           placeholder="Enter the book title..." />
+                                    <span asp-validation-for="Title" class="invalid-feedback d-block"></span>
+                                </div>
+
+                                <!-- ISBN and Price Row -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label asp-for="ISBN" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-upc me-1 text-primary"></i>
+                                            ISBN
+                                        </label>
+                                        <input asp-for="ISBN" class="form-control border-2" 
+                                               placeholder="978-3-16-148410-0" />
+                                        <span asp-validation-for="ISBN" class="invalid-feedback d-block"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="Price" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-currency-dollar me-1 text-primary"></i>
+                                            Price
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-text border-2">$</span>
+                                            <input asp-for="Price" class="form-control border-2" type="number" 
+                                                   step="0.01" placeholder="0.00" />
+                                        </div>
+                                        <span asp-validation-for="Price" class="invalid-feedback d-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Stock and Pages Row -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label asp-for="StockQuantity" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-box-seam me-1 text-primary"></i>
+                                            Stock Quantity
+                                        </label>
+                                        <input asp-for="StockQuantity" class="form-control border-2" type="number" 
+                                               placeholder="0" min="0" />
+                                        <span asp-validation-for="StockQuantity" class="invalid-feedback d-block"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="Pages" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-file-earmark-text me-1 text-primary"></i>
+                                            Pages
+                                        </label>
+                                        <input asp-for="Pages" class="form-control border-2" type="number" 
+                                               placeholder="0" min="1" />
+                                        <span asp-validation-for="Pages" class="invalid-feedback d-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Language and Published Date Row -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label asp-for="Language" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-translate me-1 text-primary"></i>
+                                            Language
+                                        </label>
+                                        <input asp-for="Language" class="form-control border-2" 
+                                               placeholder="e.g., English, Spanish..." />
+                                        <span asp-validation-for="Language" class="invalid-feedback d-block"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="PublishedDate" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-calendar-date me-1 text-primary"></i>
+                                            Published Date
+                                        </label>
+                                        <input asp-for="PublishedDate" class="form-control border-2" type="date" />
+                                        <span asp-validation-for="PublishedDate" class="invalid-feedback d-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Category and Authors Row -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label asp-for="CategoryId" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-tag me-1 text-primary"></i>
+                                            Category
+                                        </label>
+                                        <select class="form-select border-2" asp-for="CategoryId" asp-items="Model.Categories">
+                                            <option value="">Choose a category...</option>
+                                        </select>
+                                        <span asp-validation-for="CategoryId" class="invalid-feedback d-block"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="SelectedAuthors" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-people me-1 text-primary"></i>
+                                            Authors
+                                        </label>
+                                        <select class="form-select border-2" asp-for="SelectedAuthors" asp-items="Model.Authors" multiple>
+                                            <option value="">Select author(s)...</option>
+                                        </select>
+                                        <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple authors</small>
+                                        <span asp-validation-for="SelectedAuthors" class="invalid-feedback d-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="mb-0">
+                                    <label asp-for="Description" class="form-label fw-semibold text-dark">
+                                        <i class="bi bi-chat-text me-1 text-primary"></i>
+                                        Description
+                                    </label>
+                                    <textarea asp-for="Description" class="form-control border-2" rows="5" 
+                                              placeholder="Enter a detailed description of the book..."></textarea>
+                                    <div class="form-text">
+                                        <small class="text-muted">
+                                            <i class="bi bi-info-circle me-1"></i>
+                                            Provide a compelling description that will help readers understand what this book is about.
+                                        </small>
+                                    </div>
+                                    <span asp-validation-for="Description" class="invalid-feedback d-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Image Upload -->
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-header bg-light border-0 py-3">
+                                <h5 class="mb-0 fw-semibold text-dark">
+                                    <i class="bi bi-image me-2 text-primary"></i>
+                                    Book Cover
+                                </h5>
+                            </div>
+                            <div class="card-body p-4 text-center">
+                                <!-- Image Upload Area -->
+                                <div class="mb-4">
+                                    <div class="image-upload-container position-relative">
+                                        <div class="image-preview-wrapper border border-2 border-dashed rounded-3 p-4 bg-light position-relative" style="min-height: 300px;">
+                                            <img class="img-preview img-fluid rounded shadow-sm d-none" alt="Book Cover Preview" style="max-height: 280px; object-fit: cover;" />
+                                            <div class="upload-placeholder d-flex flex-column align-items-center justify-content-center h-100">
+                                                <div class="bg-primary bg-gradient rounded-circle p-3 mb-3">
+                                                    <i class="bi bi-cloud-upload text-white fs-1"></i>
+                                                </div>
+                                                <h6 class="fw-semibold text-dark mb-2">Upload Book Cover</h6>
+                                                <p class="text-muted mb-3 small">Drag & drop an image here, or click to browse</p>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="document.getElementById('imageInput').click()">
+                                                    <i class="bi bi-folder2-open me-1"></i>
+                                                    Choose File
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <input id="imageInput" asp-for="ImageUrl" class="form-control d-none" type="file" accept="image/*"
+                                               data-rule-extension="@FileSettings.AllowedExtensions.Replace(".", string.Empty)"
+                                               data-msg-extension="Only @FileSettings.AllowedExtensions are allowed"
+                                               data-rule-filesize="@FileSettings.MaxFileSizeInBytes"
+                                               data-msg-filesize="Maximum allowed size is @FileSettings.MaxFileSizeInMB MB" />
+                                    </div>
+                                    
+                                    <div class="mt-3">
+                                        <small class="text-muted">
+                                            <i class="bi bi-info-circle me-1"></i>
+                                            Supported formats: @FileSettings.AllowedExtensions
+                                            <br>
+                                            Maximum size: @FileSettings.MaxFileSizeInMB MB
+                                        </small>
+                                    </div>
+                                    <span asp-validation-for="ImageUrl" class="invalid-feedback d-block"></span>
+                                </div>
+
+                                <!-- Upload Tips -->
+                                <div class="alert alert-info border-0 bg-info bg-opacity-10">
+                                    <h6 class="alert-heading fw-semibold text-info">
+                                        <i class="bi bi-lightbulb me-1"></i>
+                                        Tips for best results:
+                                    </h6>
+                                    <ul class="mb-0 small text-muted">
+                                        <li>Use high-quality images (300+ DPI)</li>
+                                        <li>Recommended size: 600x900 pixels</li>
+                                        <li>Ensure the cover is clearly visible</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label asp-for="Pages" class="control-label"></label>
-                    <input asp-for="Pages" class="form-control" type="number" />
-                    <span asp-validation-for="Pages" class="text-danger"></span>
+                <!-- Action Buttons -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-4">
+                                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-between align-items-center">
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" class="btn btn-primary btn-lg px-4">
+                                            <i class="bi bi-plus-circle me-2"></i>
+                                            Create Book
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger" onclick="cancelForm()">
+                                            <i class="bi bi-x-circle me-2"></i> Cancel
+                                        </button>
+                                        <button type="reset" class="btn btn-outline-secondary" onclick="resetPreview()">
+                                            <i class="bi bi-arrow-clockwise me-2"></i> Clear Form
+                                        </button>
+                                  
+                                    </div>
+                                    <div class="text-muted small">
+                                        <i class="bi bi-shield-check me-1"></i>
+                                        All fields marked with * are required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label asp-for="Language" class="control-label"></label>
-                    <input asp-for="Language" class="form-control" />
-                    <span asp-validation-for="Language" class="text-danger"></span>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label asp-for="PublishedDate" class="control-label"></label>
-                    <input asp-for="PublishedDate" class="form-control" type="date" />
-                    <span asp-validation-for="PublishedDate" class="text-danger"></span>
-                </div>
-                
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label asp-for="CategoryId" class="control-label"></label>
-                    <select class="form-select" asp-for="CategoryId" asp-items="Model.Categories" class="form-control">
-                        <option value="">Select Category</option>
-                    </select>
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label asp-for="SelectedAuthors" class="control-label"></label>
-                    <select class="form-select" asp-for="SelectedAuthors" asp-items="Model.Authors" class="form-control">
-                        <option value="">Select Author(s)</option>
-                    </select>
-                    <span asp-validation-for="SelectedAuthors" class="text-danger"></span>
-                </div>
-
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-
+            </form>
         </div>
-        <div class="col-md-6">
-           
-            <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label">Book Image</label>
-                <input asp-for="ImageUrl" class="form-control" type="file"
-                data-rule-extension="@FileSettings.AllowedExtensions.Replace(".", string.Empty)"
-                data-msg-extension="Only @FileSettings.AllowedExtensions are allowed"
-                data-rule-filesize="@FileSettings.MaxFileSizeInBytes"
-                data-msg-filesize="Maximum allowed size is @FileSettings.MaxFileSizeInMB MB"
-                />
-
-                <small class="form-text text-muted">Only @FileSettings.AllowedExtensions files are allowed with max size @FileSettings.MaxFileSizeInMB MB.</small>
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <img class="img-preview" alt="BookImage" />
-            </div>
-            
-        </div>
-      
     </div>
-
-    <div class="form-group">
-        <input type="submit" value="Create Book" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i>
-            Back to List
-        </a>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-	<script src="~/js/filesize-validator.js" asp-append-version="true"></script>
-	<script src="~/js/book-form.js" asp-append-version="true"></script>
+    <script src="~/js/filesize-validator.js" asp-append-version="true"></script>
+    <script src="~/js/book-form.js" asp-append-version="true"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            /* ============================
+               IMAGE PREVIEW & UPLOAD
+            ============================ */
+            const imageInput = document.getElementById('imageInput');
+            const imagePreview = document.querySelector('.img-preview');
+            const uploadPlaceholder = document.querySelector('.upload-placeholder');
+            const imageUploadArea = document.querySelector('.image-preview-wrapper');
+
+            if (imageInput && imagePreview && uploadPlaceholder && imageUploadArea) {
+                // File selection
+                imageInput.addEventListener('change', function (e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (ev) {
+                            imagePreview.src = ev.target.result;
+                            imagePreview.classList.remove('d-none');
+                            uploadPlaceholder.classList.add('d-none');
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                // Drag & drop
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    imageUploadArea.addEventListener(eventName, preventDefaults, false);
+                });
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    imageUploadArea.addEventListener(eventName, () => highlight(true), false);
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    imageUploadArea.addEventListener(eventName, () => highlight(false), false);
+                });
+
+                imageUploadArea.addEventListener('drop', handleDrop, false);
+                imageUploadArea.addEventListener('click', () => imageInput.click());
+
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+
+                function highlight(add) {
+                    imageUploadArea.classList.toggle('border-primary', add);
+                    imageUploadArea.classList.toggle('bg-primary', add);
+                    imageUploadArea.classList.toggle('bg-opacity-10', add);
+                }
+
+                function handleDrop(e) {
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+
+                    if (files.length > 0) {
+                        imageInput.files = files;
+                        const event = new Event('change', { bubbles: true });
+                        imageInput.dispatchEvent(event);
+                    }
+                }
+            }
+
+            /* ============================
+               FORM CHANGE TRACKING
+            ============================ */
+            const firstName = document.querySelector('[name="FirstName"]');
+            const lastName = document.querySelector('[name="LastName"]');
+            const biography = document.querySelector('[name="Biography"]');
+            const birthDate = document.querySelector('[name="BirthDate"]');
+            const deathDate = document.querySelector('[name="DeathDate"]');
+            const nationality = document.querySelector('[name="Nationality"]');
+            const preview = document.getElementById('previewName');
+
+            const originalValues = {
+                firstName: firstName?.value.trim() || "",
+                lastName: lastName?.value.trim() || "",
+                biography: biography?.value.trim() || "",
+                birthDate: birthDate?.value || "",
+                deathDate: deathDate?.value || "",
+                nationality: nationality?.value.trim() || ""
+            };
+
+            function hasFormChanges() {
+                return (
+                    (firstName?.value.trim() || "") !== originalValues.firstName ||
+                    (lastName?.value.trim() || "") !== originalValues.lastName ||
+                    (biography?.value.trim() || "") !== originalValues.biography ||
+                    (birthDate?.value || "") !== originalValues.birthDate ||
+                    (deathDate?.value || "") !== originalValues.deathDate ||
+                    (nationality?.value.trim() || "") !== originalValues.nationality
+                );
+            }
+
+            /* ============================
+               CANCEL + RESET FUNCTIONS
+            ============================ */
+            window.cancelForm = function () {
+                if (hasFormChanges()) {
+                    if (confirm("You have unsaved changes. Are you sure you want to cancel and lose all changes?")) {
+                        window.location.href = '@Url.Action("Index")';
+                    }
+                } else {
+                    window.location.href = '@Url.Action("Index")';
+                }
+            };
+
+            window.resetPreview = function () {
+                preview.textContent = 'New Author';
+                if (imagePreview) {
+                    imagePreview.src = "";
+                    imagePreview.classList.add('d-none');
+                    uploadPlaceholder.classList.remove('d-none');
+                }
+            };
+
+            /* ============================
+               PREVIEW NAME UPDATE
+            ============================ */
+            function updatePreview() {
+                const fn = firstName?.value.trim() || "";
+                const ln = lastName?.value.trim() || "";
+                preview.textContent = fn || ln ? `${fn} ${ln}` : 'New Author';
+            }
+
+            firstName?.addEventListener('input', updatePreview);
+            lastName?.addEventListener('input', updatePreview);
+        });
+    </script>
 }

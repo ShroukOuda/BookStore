@@ -1,146 +1,50 @@
-﻿@model List<BookStore.Models.Book>
+﻿@model BookFilterViewModel
 @{
     ViewData["Title"] = "Books";
+    var bookCount = Model.Books?.Count() ?? 0;
 }
 
-<div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="mb-0">Books Catalog</h2>
-        <a asp-action="Create" class="btn btn-success btn-lg rounded-pill shadow d-inline-flex align-items-center gap-2 px-4 py-2">
-            <i class="bi bi-plus-circle"></i>
-            Add New Book
-        </a>
+<div class="row">
+    <!-- Sidebar Filters -->
+    <div class="col-lg-3">
+        @await Html.PartialAsync("BookFilter", Model)
     </div>
 
-    <div class="row g-4">
-        @foreach (var book in Model)
-
-        {
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden hover-card">
-                    <!-- Book Image -->
-                    <div class="card-img-top-container" style="height: 250px; overflow: hidden; background-color: #f8f9fa;">
-                        @if (!string.IsNullOrEmpty(book.ImageUrl))
-
-                        {
-                            <img src="~/images/books/@book.ImageUrl"
-                                 alt="@book.Title Cover"
-                                 class="w-100 h-100"
-                                 style="object-fit: cover;" />
-                        }
-
-                        else
-
-                        {
-                            <div class="d-flex align-items-center justify-content-center h-100 text-muted">
-                                <div class="text-center">
-                                    <i class="bi bi-book" style="font-size: 3rem;"></i>
-                                    <p class="mt-2 mb-0">No Image</p>
+    <!-- Book Catalog -->
+    <div class="col-lg-9">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body py-3">
+                        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary bg-gradient rounded-circle p-2 me-3">
+                                    <i class="bi bi-book text-white fs-4"></i>
+                                </div>
+                                <div>
+                                    <h1 class="mb-1 fw-bold text-dark">Books Catalog</h1>
+                                    <p class="text-muted mb-0">
+                                        <i class="bi bi-info-circle me-1"></i>
+                                        Discover and manage your book collection
+                                        @if (bookCount > 0)
+                                        {
+                                            <span class="badge bg-primary-subtle text-primary ms-2">
+                                                @bookCount Books
+                                            </span>
+                                        }
+                                    </p>
                                 </div>
                             </div>
-                        }
-                    </div>
-
-                    <div class="card-body d-flex flex-column">
-                        <!-- Title -->
-                        <h5 class="card-title text-truncate mb-2" title="@book.Title">
-                            @book.Title
-                        </h5>
-
-                        <!-- Authors -->
-                        <p class="card-text text-muted mb-2 small">
-                            <i class="bi bi-person me-1"></i>
-                            By
-                            @{
-                                var authors = book.BookAuthors.Select(ba => $"{ba.Author.FirstName} {ba.Author.LastName}").ToList();
-                            }
-                            @string.Join(", ", authors)
-                        </p>
-
-                        <!-- Category -->
-                        <p class="card-text mb-2">
-                            <span class="badge bg-primary rounded-pill">
-                                <i class="bi bi-tag me-1"></i>
-                                @(book.Category?.Name ?? "Uncategorized")
-                            </span>
-                        </p>
-
-                        <!-- Language -->
-                        <p class="card-text mb-2 small text-muted">
-                            <i class="bi bi-globe me-1"></i>
-                            @book.Language
-                        </p>
-
-                        <!-- Price -->
-                        <div class="mt-auto">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="text-success mb-0 fw-bold">
-                                    @book.Price.ToString("C")
-                                </h4>
-                                @if (book.StockQuantity > 0)
-
-                                {
-                                    <small class="text-success">
-                                        <i class="bi bi-check-circle me-1"></i>
-                                        In Stock (@book.StockQuantity)
-                                    </small>
-                                }
-
-                                else
-
-                                {
-                                    <small class="text-danger">
-                                        <i class="bi bi-x-circle me-1"></i>
-                                        Out of Stock
-                                    </small>
-                                }
-                            </div>
-
-                            <!-- View Details Button -->
-                            <a asp-action="GetBookDetail" asp-route-id="@book.Id"
-                               class="btn btn-outline-primary w-100 rounded-pill">
-                                <i class="bi bi-eye me-1"></i>
-                                View Details
+                            <a asp-action="Create" class="btn btn-success btn-lg rounded-pill shadow-sm d-flex align-items-center gap-2 px-4 py-2">
+                                <i class="bi bi-plus-circle"></i>
+                                Add New Book
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-        }
-    </div>
-
-    @if (!Model.Any())
-
-    {
-        <div class="text-center py-5">
-            <i class="bi bi-book text-muted" style="font-size: 4rem;"></i>
-            <h3 class="text-muted mt-3">No books available</h3>
-            <p class="text-muted">Start by adding your first book to the catalog.</p>
-            <a asp-action="Create" class="btn btn-success btn-lg rounded-pill">
-                <i class="bi bi-plus-circle me-2"></i>
-                Add New Book
-            </a>
         </div>
-    }
+
+        @await Html.PartialAsync("BookList", Model)
+    </div>
 </div>
-
-<style>
-    .hover-card {
-        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    }
-
-    .hover-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-    }
-
-    .card-title {
-        line-height: 1.3;
-        height: 2.6em;
-        overflow: hidden;
-    }
-
-    .badge {
-        font-size: 0.75rem;
-    }
-</style>

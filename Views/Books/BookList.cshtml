@@ -1,0 +1,103 @@
+@model BookFilterViewModel
+@{
+    var bookCount = Model.Books?.Count() ?? 0;
+}
+
+@if (bookCount == 0)
+{
+    <div class="card border-0 shadow-sm text-center py-5">
+        <div class="mb-4">
+            <div class="bg-light rounded-circle mx-auto d-inline-flex p-4">
+                <i class="bi bi-book text-muted" style="font-size: 4rem;"></i>
+            </div>
+        </div>
+        <h3 class="fw-bold text-dark mb-3">No Books Found</h3>
+        <p class="text-muted mb-4 lead">Try adjusting your filters or add a new book.</p>
+        <a asp-action="Create" class="btn btn-success btn-lg rounded-pill px-4">
+            <i class="bi bi-plus-circle me-2"></i>
+            Add Book
+        </a>
+    </div>
+}
+else
+{
+    <div class="row g-4" id="booksContainer">
+        @foreach (var book in Model.Books)
+        {
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 book-item"
+                 data-title="@book.Title?.ToLower()"
+                 data-price="@book.Price"
+                 data-pages="@book.Pages"
+                 data-language="@book.Language?.ToLower()"
+                 data-isbn="@book.ISBN">
+
+                <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden hover-card">
+                    <!-- Book Image -->
+                    <div class="position-relative" style="height: 250px; overflow: hidden; background-color: #f8f9fa;">
+                        @if (!string.IsNullOrWhiteSpace(book.ImageUrl))
+                        {
+                            <img src="@FileSettings.ImagesPath/@book.ImageUrl"
+                                 alt="@(book.Title ?? "Book") Cover"
+                                 class="w-100 h-100"
+                                 style="object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                                <div class="text-center">
+                                    <i class="bi bi-book" style="font-size: 3rem;"></i>
+                                    <p class="mt-2 mb-0">No Image</p>
+                                </div>
+                            </div>
+                        }
+                        <span class="badge bg-dark bg-opacity-75 text-white position-absolute top-0 end-0 m-2">
+                            @book.Pages pages
+                        </span>
+                    </div>
+
+                    <!-- Book Info -->
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-truncate mb-2" title="@book.Title">@book.Title</h5>
+                        <p class="card-text text-muted mb-2 small">
+                            <i class="bi bi-person me-1"></i>
+                            By @string.Join(", ", book.BookAuthors?.Select(a => a.Author.FirstName + " " + a.Author.LastName) ?? new List<string>())
+                        </p>
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                            <span class="badge bg-primary rounded-pill">
+                                <i class="bi bi-tag me-1"></i> @(book.Category?.Name ?? "Uncategorized")
+                            </span>
+                            <span class="badge bg-secondary bg-opacity-10 text-dark rounded-pill">
+                                <i class="bi bi-globe me-1"></i> @book.Language
+                            </span>
+                        </div>
+                        <p class="card-text mb-2 small text-muted font-monospace">
+                            <i class="bi bi-upc me-1"></i> @book.ISBN
+                        </p>
+
+                        <!-- Price & Stock -->
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-success mb-0 fw-bold">@book.Price.ToString("C")</h4>
+                                @if (book.StockQuantity > 0)
+                                {
+                                    <small class="text-success">
+                                        <i class="bi bi-check-circle me-1"></i> In Stock (@book.StockQuantity)
+                                    </small>
+                                }
+                                else
+                                {
+                                    <small class="text-danger">
+                                        <i class="bi bi-x-circle me-1"></i> Out of Stock
+                                    </small>
+                                }
+                            </div>
+                            <a asp-action="GetBookDetail" asp-route-id="@book.Id" class="btn btn-primary rounded-pill w-100">
+                                <i class="bi bi-eye me-1"></i> View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

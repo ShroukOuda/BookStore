@@ -6,7 +6,10 @@ global using BookStore.Data.Seed;
 global using BookStore.Data;
 global using Microsoft.AspNetCore.Mvc.Rendering;
 global using BookStore.Services;
-global using BookStore.ViewModels;
+global using BookStore.ViewModels.Book;
+global using BookStore.ViewModels.Category;
+global using BookStore.ViewModels.Author;
 global using Microsoft.AspNetCore.Mvc;
 global using BookStore.Settings;
+global using BookStore.Attributes;
 

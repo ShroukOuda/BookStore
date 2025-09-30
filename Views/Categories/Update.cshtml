@@ -1,0 +1,295 @@
+@model CategoryFormViewModel
+
+@{
+    ViewData["Title"] = "Update Category";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 col-xl-6">
+            <!-- Header Section -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-warning bg-gradient rounded-circle p-2 me-3">
+                                <i class="bi bi-pencil-square text-white fs-5"></i>
+                            </div>
+                            <div>
+                                <h1 class="mb-1 fw-bold text-dark">Update Category</h1>
+                                <p class="text-muted mb-0">Modify the category details and save your changes</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center text-muted small">
+                            <i class="bi bi-clock-history me-1"></i>
+                            <span>Last updated: @DateTime.Now.ToString("MMM dd, yyyy")</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light border-0 py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0 fw-semibold text-dark">
+                            <i class="bi bi-info-circle me-2 text-warning"></i>
+                            Category Details
+                        </h5>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Update" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <!-- Current Values Display -->
+                        <div class="alert alert-info border-0 bg-info bg-opacity-10 mb-4">
+                            <h6 class="alert-heading fw-semibold text-info">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Current Category Information:
+                            </h6>
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-info bg-gradient fs-6 px-3 py-2" id="currentCategoryDisplay">
+                                    <i class="bi bi-tag me-1"></i>
+                                    <span id="currentName">@Model.Name</span>
+                                </span>
+                                <span class="ms-3 text-muted small" id="currentDescription">
+                                    @(!string.IsNullOrEmpty(Model.Description) ? Model.Description : "No description")
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row g-4">
+                            <!-- Category Name -->
+                            <div class="col-md-6">
+                                <label asp-for="Name" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-tag me-1 text-warning"></i>
+                                    Category Name
+                                </label>
+                                <input asp-for="Name" class="form-control form-control-lg border-2" 
+                                       placeholder="e.g., Fiction, Science, Biography..." />
+                                <div class="form-text">
+                                    <small class="text-muted">
+                                        <i class="bi bi-lightbulb me-1"></i>
+                                        Choose a clear, descriptive name for easy identification
+                                    </small>
+                                </div>
+                                <span asp-validation-for="Name" class="invalid-feedback d-block"></span>
+                            </div>
+
+                            <!-- Category Description -->
+                            <div class="col-md-6">
+                                <label asp-for="Description" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-chat-text me-1 text-warning"></i>
+                                    Description
+                                </label>
+                                <textarea asp-for="Description" class="form-control border-2" rows="4" 
+                                          placeholder="Describe what types of books belong in this category..."></textarea>
+                                <div class="form-text">
+                                    <small class="text-muted">
+                                        <i class="bi bi-info-circle me-1"></i>
+                                        Optional: Help others understand this category's purpose
+                                    </small>
+                                </div>
+                                <span asp-validation-for="Description" class="invalid-feedback d-block"></span>
+                            </div>
+                        </div>
+                        
+
+                        <!-- Action Buttons -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card border-0 bg-light">
+                                    <div class="card-body p-3">
+                                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-between align-items-center">
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <button type="submit" class="btn btn-warning btn-lg px-4">
+                                                    <i class="bi bi-check-circle me-2"></i>
+                                                    Update Category
+                                                </button>
+                                                <button type="button" class="btn btn-outline-danger btn-lg px-4" onclick="cancelChanges()">
+                                                    <i class="bi bi-x-circle me-2"></i>
+                                                    Cancel
+                                                </button>
+                                                <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="resetForm()">
+                                                    <i class="bi bi-arrow-clockwise me-2"></i>
+                                                    Reset Changes
+                                                </button>
+                                            </div>
+                                            <div class="text-muted small">
+                                                <i class="bi bi-shield-check me-1"></i>
+                                                Changes will be saved permanently
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nameInput = document.querySelector('input[name="Name"]');
+            const descriptionInput = document.querySelector('textarea[name="Description"]');
+            const previewName = document.getElementById('previewName');
+            const previewDescription = document.getElementById('previewDescription');
+            const changeIndicator = document.getElementById('changeIndicator');
+            const changedFields = document.getElementById('changedFields');
+
+            // Store original values for comparison and reset
+            const originalValues = {
+                name: nameInput.value,
+                description: descriptionInput.value
+            };
+
+            let hasChanges = false;
+            let changedFieldsList = [];
+
+            // Update preview and track changes as user types
+            function updatePreview() {
+                const nameValue = nameInput.value.trim();
+                const descValue = descriptionInput.value.trim();
+                
+                // Update preview
+                previewName.textContent = nameValue || 'Category Name';
+                previewDescription.textContent = descValue || 'No description';
+                
+                // Track changes
+                changedFieldsList = [];
+                
+                if (nameValue !== originalValues.name) {
+                    changedFieldsList.push('Name');
+                }
+                
+                if (descValue !== originalValues.description) {
+                    changedFieldsList.push('Description');
+                }
+                
+                hasChanges = changedFieldsList.length > 0;
+                
+                // Show/hide change indicator
+                if (hasChanges) {
+                    changeIndicator.style.display = 'block';
+                    changedFields.textContent = changedFieldsList.join(', ');
+                } else {
+                    changeIndicator.style.display = 'none';
+                }
+            }
+
+            // Add event listeners
+            nameInput.addEventListener('input', updatePreview);
+            descriptionInput.addEventListener('input', updatePreview);
+
+            // Cancel changes functionality
+            window.cancelChanges = function() {
+                if (hasChanges) {
+                    if (confirm('You have unsaved changes. Are you sure you want to cancel and lose all changes?')) {
+                        window.location.href = '@Url.Action("Index")';
+                    }
+                } else {
+                    window.location.href = '@Url.Action("Index")';
+                }
+            };
+
+            // Reset form functionality
+            window.resetForm = function() {
+                if (hasChanges) {
+                    if (confirm('Are you sure you want to reset all changes? This will restore the original values.')) {
+                        nameInput.value = originalValues.name;
+                        descriptionInput.value = originalValues.description;
+                        updatePreview();
+                        
+                        // Clear validation errors
+                        document.querySelectorAll('.invalid-feedback').forEach(el => {
+                            el.textContent = '';
+                            el.style.display = 'none';
+                        });
+                        
+                        // Remove border styling
+                        [nameInput, descriptionInput].forEach(input => {
+                            input.classList.remove('border-warning', 'border-danger', 'border-success');
+                        });
+                    }
+                } else {
+                    // Still reset even if no changes detected
+                    nameInput.value = originalValues.name;
+                    descriptionInput.value = originalValues.description;
+                    updatePreview();
+                }
+            };
+
+            // Add visual feedback for form changes
+            [nameInput, descriptionInput].forEach(input => {
+                input.addEventListener('input', function() {
+                    const currentValue = this.value.trim();
+                    const originalValue = originalValues[this.name.toLowerCase()];
+                    
+                    if (currentValue !== originalValue) {
+                        this.classList.add('border-warning');
+                        this.classList.remove('border-success', 'border-danger');
+                    } else {
+                        this.classList.remove('border-warning', 'border-danger');
+                        this.classList.add('border-success');
+                    }
+                });
+            });
+
+            // Form validation
+            nameInput.addEventListener('blur', function() {
+                if (!this.value.trim()) {
+                    this.classList.add('border-danger');
+                    this.classList.remove('border-success', 'border-warning');
+                    const errorSpan = this.nextElementSibling.nextElementSibling;
+                    if (errorSpan && errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan.textContent = 'Category name is required.';
+                        errorSpan.style.display = 'block';
+                    }
+                } else {
+                    this.classList.remove('border-danger');
+                    const errorSpan = this.nextElementSibling.nextElementSibling;
+                    if (errorSpan && errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan.style.display = 'none';
+                    }
+                }
+            });
+
+            // Form submission handler
+            document.querySelector('form').addEventListener('submit', function(e) {
+                const name = nameInput.value.trim();
+                if (!name) {
+                    e.preventDefault();
+                    nameInput.classList.add('border-danger');
+                    nameInput.focus();
+                    
+                    const errorSpan = nameInput.nextElementSibling.nextElementSibling;
+                    if (errorSpan && errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan.textContent = 'Category name is required.';
+                        errorSpan.style.display = 'block';
+                    }
+                    return false;
+                }
+            });
+
+            // Prevent accidental navigation
+            window.addEventListener('beforeunload', function(e) {
+                if (hasChanges) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                    return '';
+                }
+            });
+
+            // Initial state check
+            updatePreview();
+        });
+    </script>
+}

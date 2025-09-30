@@ -1,0 +1,219 @@
+@model BookStore.ViewModels.Author.AuthorFormViewModel
+
+@{
+    ViewData["Title"] = "Update Author";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 col-xl-6">
+            <!-- Header Section -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-success bg-gradient rounded-circle p-2 me-3">
+                                <i class="bi bi-pencil-square text-white fs-5"></i>
+                            </div>
+                            <div>
+                                <h1 class="mb-1 fw-bold text-dark">Update Author</h1>
+                                <p class="text-muted mb-0">Modify the author details and save your changes</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center text-muted small">
+                            <i class="bi bi-clock-history me-1"></i>
+                            <span>Last updated: @DateTime.Now.ToString("MMM dd, yyyy")</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light border-0 py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0 fw-semibold text-dark">
+                            <i class="bi bi-info-circle me-2 text-success"></i>
+                            Author Details
+                        </h5>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Update" method="post" class="needs-validation" novalidate>
+                        <!-- Current Values -->
+                        <div class="alert alert-info border-0 bg-info bg-opacity-10 mb-4">
+                            <h6 class="alert-heading fw-semibold text-info">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Current Author Information:
+                            </h6>
+                            <div class="d-flex flex-column">
+                                <span class="badge bg-success bg-gradient fs-6 px-3 py-2 mb-2" id="currentAuthorDisplay">
+                                    <i class="bi bi-person-circle me-1"></i>
+                                    <span id="currentName">@($"{Model.FirstName} {Model.LastName}")</span>
+                                </span>
+                                <span class="text-muted small" id="currentBiography">
+                                    @(!string.IsNullOrEmpty(Model.Biography) ? Model.Biography : "No biography")
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row g-4">
+                            <!-- First Name -->
+                            <div class="col-md-6">
+                                <label asp-for="FirstName" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-person-fill me-1 text-success"></i>
+                                    First Name
+                                </label>
+                                <input asp-for="FirstName" class="form-control form-control-lg border-2"
+                                       placeholder="Jane" />
+                                <span asp-validation-for="FirstName" class="invalid-feedback d-block"></span>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="col-md-6">
+                                <label asp-for="LastName" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-person-fill me-1 text-success"></i>
+                                    Last Name
+                                </label>
+                                <input asp-for="LastName" class="form-control form-control-lg border-2"
+                                       placeholder="Austen" />
+                                <span asp-validation-for="LastName" class="invalid-feedback d-block"></span>
+                            </div>
+
+                            <!-- Biography -->
+                            <div class="col-12">
+                                <label asp-for="Biography" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-journal-text me-1 text-success"></i>
+                                    Biography
+                                </label>
+                                <textarea asp-for="Biography" class="form-control border-2" rows="4"
+                                          placeholder="Short biography..."></textarea>
+                                <span asp-validation-for="Biography" class="invalid-feedback d-block"></span>
+                            </div>
+
+                            <!-- Birth Date -->
+                            <div class="col-md-6">
+                                <label asp-for="BirthDate" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-calendar-event me-1 text-success"></i>
+                                    Birth Date
+                                </label>
+                                <input asp-for="BirthDate" class="form-control border-2" type="date" />
+                            </div>
+
+                            <!-- Death Date -->
+                            <div class="col-md-6">
+                                <label asp-for="DeathDate" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-calendar-x me-1 text-danger"></i>
+                                    Death Date
+                                </label>
+                                <input asp-for="DeathDate" class="form-control border-2" type="date" />
+                            </div>
+
+                            <!-- Nationality -->
+                            <div class="col-12">
+                                <label asp-for="Nationality" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-flag me-1 text-primary"></i>
+                                    Nationality
+                                </label>
+                                <input asp-for="Nationality" class="form-control border-2"
+                                       placeholder="e.g., British" />
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card border-0 bg-light">
+                                    <div class="card-body p-3">
+                                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-between align-items-center">
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <button type="submit" class="btn btn-success btn-lg px-4">
+                                                    <i class="bi bi-check-circle me-2"></i>
+                                                    Update Author
+                                                </button>
+                                                <button type="button" class="btn btn-outline-danger btn-lg px-4" onclick="cancelChanges()">
+                                                    <i class="bi bi-x-circle me-2"></i>
+                                                    Cancel
+                                                </button>
+                                                <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="resetForm()">
+                                                    <i class="bi bi-arrow-clockwise me-2"></i>
+                                                    Reset Changes
+                                                </button>
+                                            </div>
+                                            <div class="text-muted small">
+                                                <i class="bi bi-shield-check me-1"></i>
+                                                Changes will be saved permanently
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const firstNameInput = document.querySelector('input[name="FirstName"]');
+            const lastNameInput = document.querySelector('input[name="LastName"]');
+            const bioInput = document.querySelector('textarea[name="Biography"]');
+            const previewName = document.getElementById('currentName');
+            const previewBio = document.getElementById('currentBiography');
+
+            const originalValues = {
+                firstName: firstNameInput.value,
+                lastName: lastNameInput.value,
+                biography: bioInput.value
+            };
+
+            let hasChanges = false;
+
+            function updatePreview() {
+                const fn = firstNameInput.value.trim();
+                const ln = lastNameInput.value.trim();
+                previewName.textContent = fn || ln ? `${fn} ${ln}` : 'Author Name';
+
+                const bio = bioInput.value.trim();
+                previewBio.textContent = bio || 'No biography';
+
+                hasChanges =
+                    fn !== originalValues.firstName ||
+                    ln !== originalValues.lastName ||
+                    bio !== originalValues.biography;
+            }
+
+            [firstNameInput, lastNameInput, bioInput].forEach(input => {
+                input.addEventListener('input', updatePreview);
+            });
+
+            window.cancelChanges = function () {
+                if (hasChanges && !confirm("You have unsaved changes. Discard them?")) return;
+                window.location.href = '@Url.Action("Index")';
+            };
+
+            window.resetForm = function () {
+                firstNameInput.value = originalValues.firstName;
+                lastNameInput.value = originalValues.lastName;
+                bioInput.value = originalValues.biography;
+                updatePreview();
+            };
+
+            window.addEventListener('beforeunload', function (e) {
+                if (hasChanges) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                }
+            });
+
+            updatePreview();
+        });
+    </script>
+}

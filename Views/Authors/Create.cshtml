@@ -1,0 +1,143 @@
+@model BookStore.ViewModels.Author.AuthorFormViewModel
+
+@{
+    ViewData["Title"] = "Add Author";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 col-xl-6">
+
+            <!-- Header -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body py-3 d-flex align-items-center">
+                    <div class="bg-success bg-gradient rounded-circle p-2 me-3">
+                        <i class="bi bi-person-plus text-white fs-5"></i>
+                    </div>
+                    <div>
+                        <h1 class="mb-1 fw-bold text-dark">Add New Author</h1>
+                        <p class="text-muted mb-0">Create a new author profile for your bookstore</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-light py-3 fw-semibold text-dark">
+                    <i class="bi bi-info-circle me-2 text-success"></i> Author Details
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post">
+                        <div class="row g-4">
+                            <!-- First Name -->
+                            <div class="col-md-6">
+                                <label asp-for="FirstName" class="form-label fw-semibold">
+                                    <i class="bi bi-person-fill text-success me-1"></i> First Name
+                                </label>
+                                <input asp-for="FirstName" class="form-control" placeholder="Jane" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="col-md-6">
+                                <label asp-for="LastName" class="form-label fw-semibold">
+                                    <i class="bi bi-person-fill text-success me-1"></i> Last Name
+                                </label>
+                                <input asp-for="LastName" class="form-control" placeholder="Austen" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+
+                            <!-- Biography -->
+                            <div class="col-12">
+                                <label asp-for="Biography" class="form-label fw-semibold">
+                                    <i class="bi bi-journal-text text-success me-1"></i> Biography
+                                </label>
+                                <textarea asp-for="Biography" class="form-control" rows="4" placeholder="Short biography..."></textarea>
+                            </div>
+
+                            <!-- Birth Date -->
+                            <div class="col-md-6">
+                                <label asp-for="BirthDate" class="form-label fw-semibold">
+                                    <i class="bi bi-calendar-event text-success me-1"></i> Birth Date
+                                </label>
+                                <input asp-for="BirthDate" class="form-control" type="date" />
+                            </div>
+
+                            <!-- Death Date -->
+                            <div class="col-md-6">
+                                <label asp-for="DeathDate" class="form-label fw-semibold">
+                                    <i class="bi bi-calendar-x text-danger me-1"></i> Death Date
+                                </label>
+                                <input asp-for="DeathDate" class="form-control" type="date" />
+                            </div>
+
+                            <!-- Nationality -->
+                            <div class="col-12">
+                                <label asp-for="Nationality" class="form-label fw-semibold">
+                                    <i class="bi bi-flag text-primary me-1"></i> Nationality
+                                </label>
+                                <input asp-for="Nationality" class="form-control" placeholder="e.g., British" />
+                            </div>
+                        </div>
+
+                        <!-- Preview -->
+                        <div class="mt-4">
+                            <div class="alert alert-success bg-opacity-10">
+                                <h6 class="fw-semibold text-success">
+                                    <i class="bi bi-eye me-1"></i> Author Preview:
+                                </h6>
+                                <span class="badge bg-success fs-6 px-3 py-2">
+                                    <i class="bi bi-person-circle me-1"></i>
+                                    <span id="previewName">New Author</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="mt-4 d-flex flex-wrap gap-2">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-plus-circle me-2"></i> Create Author
+                            </button>
+                            <button type="button" class="btn btn-outline-danger" onclick="cancelForm()">
+                                <i class="bi bi-x-circle me-2"></i> Cancel
+                            </button>
+                            <button type="reset" class="btn btn-outline-secondary" onclick="resetPreview()">
+                                <i class="bi bi-arrow-clockwise me-2"></i> Clear Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        const firstName = document.querySelector('[name="FirstName"]');
+        const lastName = document.querySelector('[name="LastName"]');
+        const preview = document.getElementById('previewName');
+
+        function updatePreview() {
+            const fn = firstName.value.trim();
+            const ln = lastName.value.trim();
+            preview.textContent = fn || ln ? `${fn} ${ln}` : 'New Author';
+        }
+
+        firstName.addEventListener('input', updatePreview);
+        lastName.addEventListener('input', updatePreview);
+
+        function cancelForm() {
+            if (firstName.value || lastName.value) {
+                if (!confirm("Discard changes?")) return;
+            }
+            window.location.href = '@Url.Action("Index")';
+        }
+
+        function resetPreview() {
+            preview.textContent = 'New Author';
+        }
+    </script>
+}

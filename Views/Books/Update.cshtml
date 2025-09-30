@@ -1,0 +1,474 @@
+@model UpdateBookFromViewModel
+
+@{
+    ViewData["Title"] = "Update Book";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+            <!-- Header Section -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-warning bg-gradient rounded-circle p-2 me-3">
+                                <i class="bi bi-pencil-square text-white fs-5"></i>
+                            </div>
+                            <div>
+                                <h1 class="mb-1 fw-bold text-dark">Update Book</h1>
+                                <p class="text-muted mb-0">Modify the book details and save your changes</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center text-muted small">
+                            <i class="bi bi-clock-history me-1"></i>
+                            <span>Last updated: @DateTime.Now.ToString("MMM dd, yyyy")</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form asp-controller="Books" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <div class="row g-4">
+                    <!-- Left Column - Book Details -->
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-header bg-light border-0 py-3">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h5 class="mb-0 fw-semibold text-dark">
+                                        <i class="bi bi-info-circle me-2 text-warning"></i>
+                                        Book Information
+                                    </h5>
+                                    <span class="badge bg-warning bg-opacity-20 text-warning border border-warning border-opacity-25">
+                                        <i class="bi bi-pencil me-1"></i>
+                                        Editing Mode
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="card-body p-4">
+                                <!-- Title -->
+                                <div class="mb-4">
+                                    <label asp-for="Title" class="form-label fw-semibold text-dark">
+                                        <i class="bi bi-type me-1 text-warning"></i>
+                                        Book Title
+                                    </label>
+                                    <input asp-for="Title" class="form-control form-control-lg border-2" 
+                                           placeholder="Enter the book title..." />
+                                    <span asp-validation-for="Title" class="invalid-feedback d-block"></span>
+                                </div>
+
+                                <!-- ISBN and Price Row -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label asp-for="ISBN" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-upc me-1 text-warning"></i>
+                                            ISBN
+                                        </label>
+                                        <input asp-for="ISBN" class="form-control border-2" 
+                                               placeholder="978-3-16-148410-0" />
+                                        <span asp-validation-for="ISBN" class="invalid-feedback d-block"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="Price" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-currency-dollar me-1 text-warning"></i>
+                                            Price
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-text border-2">$</span>
+                                            <input asp-for="Price" class="form-control border-2" type="number" 
+                                                   step="0.01" placeholder="0.00" />
+                                        </div>
+                                        <span asp-validation-for="Price" class="invalid-feedback d-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Stock and Pages Row -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label asp-for="StockQuantity" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-box-seam me-1 text-warning"></i>
+                                            Stock Quantity
+                                        </label>
+                                        <input asp-for="StockQuantity" class="form-control border-2" type="number" 
+                                               placeholder="0" min="0" />
+                                        <span asp-validation-for="StockQuantity" class="invalid-feedback d-block"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="Pages" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-file-earmark-text me-1 text-warning"></i>
+                                            Pages
+                                        </label>
+                                        <input asp-for="Pages" class="form-control border-2" type="number" 
+                                               placeholder="0" min="1" />
+                                        <span asp-validation-for="Pages" class="invalid-feedback d-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Language and Published Date Row -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label asp-for="Language" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-translate me-1 text-warning"></i>
+                                            Language
+                                        </label>
+                                        <input asp-for="Language" class="form-control border-2" 
+                                               placeholder="e.g., English, Spanish..." />
+                                        <span asp-validation-for="Language" class="invalid-feedback d-block"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="PublishedDate" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-calendar-date me-1 text-warning"></i>
+                                            Published Date
+                                        </label>
+                                        <input asp-for="PublishedDate" class="form-control border-2" type="date" />
+                                        <span asp-validation-for="PublishedDate" class="invalid-feedback d-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Category and Authors Row -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label asp-for="CategoryId" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-tag me-1 text-warning"></i>
+                                            Category
+                                        </label>
+                                        <select class="form-select border-2" asp-for="CategoryId" asp-items="Model.Categories" 
+                                                data-placeholder="Select a category" data-minimum-results-for-search="Infinity">
+                                            <option value="">Choose a category...</option>
+                                        </select>
+                                        <span asp-validation-for="CategoryId" class="invalid-feedback d-block"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="SelectedAuthors" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-people me-1 text-warning"></i>
+                                            Authors
+                                        </label>
+                                        <select class="form-select border-2" asp-for="SelectedAuthors" asp-items="Model.Authors" 
+                                                data-placeholder="Select Authors" multiple>
+                                            <option value="">Select author(s)...</option>
+                                        </select>
+                                        <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple authors</small>
+                                        <span asp-validation-for="SelectedAuthors" class="invalid-feedback d-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="mb-0">
+                                    <label asp-for="Description" class="form-label fw-semibold text-dark">
+                                        <i class="bi bi-chat-text me-1 text-warning"></i>
+                                        Description
+                                    </label>
+                                    <textarea asp-for="Description" class="form-control border-2" rows="5" 
+                                              placeholder="Enter a detailed description of the book..."></textarea>
+                                    <div class="form-text">
+                                        <small class="text-muted">
+                                            <i class="bi bi-info-circle me-1"></i>
+                                            Update the description to reflect any changes or improvements to the book's content.
+                                        </small>
+                                    </div>
+                                    <span asp-validation-for="Description" class="invalid-feedback d-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Image Upload -->
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-header bg-light border-0 py-3">
+                                <h5 class="mb-0 fw-semibold text-dark">
+                                    <i class="bi bi-image me-2 text-warning"></i>
+                                    Book Cover
+                                </h5>
+                            </div>
+                            <div class="card-body p-4 text-center">
+                                <!-- Current Image Display -->
+                                <div class="mb-4">
+                                    <div class="current-image-section">
+                                        <h6 class="fw-semibold text-muted mb-3">
+                                            <i class="bi bi-image-alt me-1"></i>
+                                            Current Cover
+                                        </h6>
+                                        <div class="current-image-wrapper position-relative mb-3">
+                                            <img class="img-current img-fluid rounded shadow" 
+                                                 alt="Current Book Cover" 
+                                                 src="@FileSettings.ImagesPath/@Model.CurrentImage" 
+                                                 style="max-height: 200px; object-fit: cover;" />
+                                            <div class="position-absolute top-0 end-0 m-2">
+                                                <span class="badge bg-success bg-opacity-90">
+                                                    <i class="bi bi-check-circle me-1"></i>
+                                                    Current
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- New Image Upload Area -->
+                                <div class="mb-4">
+                                    <h6 class="fw-semibold text-muted mb-3">
+                                        <i class="bi bi-cloud-upload me-1"></i>
+                                        Upload New Cover
+                                    </h6>
+                                    <div class="image-upload-container position-relative">
+                                        <div class="image-preview-wrapper border border-2 border-dashed rounded-3 p-4 bg-light position-relative" style="min-height: 200px;">
+                                            <img class="img-preview img-fluid rounded shadow-sm d-none" alt="New Book Cover Preview" style="max-height: 180px; object-fit: cover;" />
+                                            <div class="upload-placeholder d-flex flex-column align-items-center justify-content-center h-100">
+                                                <div class="bg-warning bg-gradient rounded-circle p-3 mb-3">
+                                                    <i class="bi bi-cloud-upload text-white fs-4"></i>
+                                                </div>
+                                                <h6 class="fw-semibold text-dark mb-2">Replace Cover Image</h6>
+                                                <p class="text-muted mb-3 small">Drag & drop a new image, or click to browse</p>
+                                                <button type="button" class="btn btn-outline-warning btn-sm" onclick="document.getElementById('imageInput').click()">
+                                                    <i class="bi bi-folder2-open me-1"></i>
+                                                    Choose New File
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <input id="imageInput" asp-for="ImageUrl" class="form-control d-none" type="file" accept="image/*"
+                                               data-rule-extension="@FileSettings.AllowedExtensions.Replace(".", string.Empty)"
+                                               data-msg-extension="Only @FileSettings.AllowedExtensions are allowed"
+                                               data-rule-filesize="@FileSettings.MaxFileSizeInBytes"
+                                               data-msg-filesize="Maximum allowed size is @FileSettings.MaxFileSizeInMB MB" />
+                                    </div>
+                                    
+                                    <div class="mt-3">
+                                        <small class="text-muted">
+                                            <i class="bi bi-info-circle me-1"></i>
+                                            Supported formats: @FileSettings.AllowedExtensions
+                                            <br>
+                                            Maximum size: @FileSettings.MaxFileSizeInMB MB
+                                        </small>
+                                    </div>
+                                    <span asp-validation-for="ImageUrl" class="invalid-feedback d-block"></span>
+                                </div>
+
+                                <!-- Update Tips -->
+                                <div class="alert alert-warning border-0 bg-warning bg-opacity-10">
+                                    <h6 class="alert-heading fw-semibold text-warning">
+                                        <i class="bi bi-lightbulb me-1"></i>
+                                        Update Guidelines:
+                                    </h6>
+                                    <ul class="mb-0 small text-muted">
+                                        <li>Leave empty to keep current image</li>
+                                        <li>New image will replace the current one</li>
+                                        <li>High-quality images recommended</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-4">
+                                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-between align-items-center">
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <button type="submit" class="btn btn-warning btn-lg px-4">
+                                            <i class="bi bi-check-circle me-2"></i>
+                                            Update Book
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger btn-lg px-4" onclick="cancelChanges()">
+                                            <i class="bi bi-x-circle me-2"></i>
+                                            Cancel
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="resetForm()">
+                                            <i class="bi bi-arrow-clockwise me-2"></i>
+                                            Reset Changes
+                                        </button>
+                                    </div>
+                                    <div class="text-muted small">
+                                        <i class="bi bi-shield-check me-1"></i>
+                                        Changes will be saved permanently
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/filesize-validator.js" asp-append-version="true"></script>
+    <script src="~/js/book-form.js" asp-append-version="true"></script>
+    
+    <script>
+        // Enhanced image preview functionality for update form
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageInput = document.getElementById('imageInput');
+            const imagePreview = document.querySelector('.img-preview');
+            const currentImage = document.querySelector('.img-current');
+            const uploadPlaceholder = document.querySelector('.upload-placeholder');
+            const uploadContainer = document.querySelector('.image-upload-container');
+
+            // Store original form values for reset functionality
+            const originalValues = {};
+            const formInputs = document.querySelectorAll('input, select, textarea');
+            formInputs.forEach(input => {
+                if (input.type !== 'file') {
+                    originalValues[input.name] = input.value;
+                }
+            });
+
+            // Handle file selection
+            imageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.classList.remove('d-none');
+                        uploadPlaceholder.classList.add('d-none');
+                        
+                        // Add visual feedback that image will be replaced
+                        currentImage.style.opacity = '0.6';
+                        const currentWrapper = document.querySelector('.current-image-wrapper');
+                        if (!currentWrapper.querySelector('.replacement-badge')) {
+                            const badge = document.createElement('div');
+                            badge.className = 'replacement-badge position-absolute top-0 start-0 m-2';
+                            badge.innerHTML = '<span class="badge bg-warning"><i class="bi bi-arrow-repeat me-1"></i>Will Replace</span>';
+                            currentWrapper.appendChild(badge);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    // Reset if no file selected
+                    imagePreview.classList.add('d-none');
+                    uploadPlaceholder.classList.remove('d-none');
+                    currentImage.style.opacity = '1';
+                    const replacementBadge = document.querySelector('.replacement-badge');
+                    if (replacementBadge) {
+                        replacementBadge.remove();
+                    }
+                }
+            });
+
+            // Handle drag and drop
+            const imageUploadArea = document.querySelector('.image-preview-wrapper');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                imageUploadArea.addEventListener(eventName, preventDefaults, false);
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                imageUploadArea.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                imageUploadArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            imageUploadArea.addEventListener('drop', handleDrop, false);
+            imageUploadArea.addEventListener('click', () => imageInput.click());
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            function highlight() {
+                imageUploadArea.classList.add('border-warning', 'bg-warning', 'bg-opacity-10');
+            }
+
+            function unhighlight() {
+                imageUploadArea.classList.remove('border-warning', 'bg-warning', 'bg-opacity-10');
+            }
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                
+                if (files.length > 0) {
+                    imageInput.files = files;
+                    const event = new Event('change', { bubbles: true });
+                    imageInput.dispatchEvent(event);
+                }
+            }
+
+            // Cancel changes functionality
+            window.cancelChanges = function() {
+                const hasChanges = checkForChanges();
+                
+                if (hasChanges) {
+                    if (confirm('You have unsaved changes. Are you sure you want to cancel and lose all changes?')) {
+                        window.location.href = '@Url.Action("Index")';
+                    }
+                } else {
+                    window.location.href = '@Url.Action("Index")';
+                }
+            };
+
+            // Check if form has any changes
+            function checkForChanges() {
+                let hasChanges = false;
+                
+                // Check regular form fields
+                Object.keys(originalValues).forEach(name => {
+                    const input = document.querySelector(`[name="${name}"]`);
+                    if (input && input.value !== originalValues[name]) {
+                        hasChanges = true;
+                    }
+                });
+                
+                // Check if new image is selected
+                if (imageInput.files && imageInput.files.length > 0) {
+                    hasChanges = true;
+                }
+                
+                return hasChanges;
+            }
+
+            // Reset form functionality
+            window.resetForm = function() {
+                if (confirm('Are you sure you want to reset all changes? This will restore the original values.')) {
+                    // Reset all form fields to original values
+                    Object.keys(originalValues).forEach(name => {
+                        const input = document.querySelector(`[name="${name}"]`);
+                        if (input) {
+                            input.value = originalValues[name];
+                        }
+                    });
+                    
+                    // Reset file input and image preview
+                    imageInput.value = '';
+                    imagePreview.classList.add('d-none');
+                    uploadPlaceholder.classList.remove('d-none');
+                    currentImage.style.opacity = '1';
+                    
+                    const replacementBadge = document.querySelector('.replacement-badge');
+                    if (replacementBadge) {
+                        replacementBadge.remove();
+                    }
+
+                    // Clear validation errors
+                    document.querySelectorAll('.invalid-feedback').forEach(el => {
+                        el.textContent = '';
+                    });
+                }
+            };
+
+            // Add visual feedback for form changes
+            formInputs.forEach(input => {
+                if (input.type !== 'file') {
+                    input.addEventListener('input', function() {
+                        if (this.value !== originalValues[this.name]) {
+                            this.classList.add('border-warning');
+                        } else {
+                            this.classList.remove('border-warning');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
