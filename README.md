@@ -119,7 +119,6 @@ export PATH=$DOTNET_ROOT:$PATH:$HOME/.dotnet/tools
 
 - [ASP.NET Core MVC Documentation](https://docs.microsoft.com/en-us/aspnet/core/mvc/)
 - [Entity Framework Core Documentation](https://docs.microsoft.com/en-us/ef/core/)
-- [ASP.NET Identity Documentation](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity)
 
 ## 📄 License
 
