@@ -1,12 +1,11 @@
 # Bookstore MVC (.NET 8)
 
-A simple **Bookstore web application** built using **ASP.NET Core MVC 8** with **Entity Framework Core** for database access and **Identity authentication** for user management.
+A simple **Bookstore web application** built using **ASP.NET Core MVC 8** with **Entity Framework Core** for database access.
 
 ## 📝 Overview
 
 This project is an MVC-based web application for managing a bookstore. Features include:
 
-- User registration, login, and roles (Identity authentication)
 - CRUD operations for Books, Authors, Categories, and Orders
 - SQL Server database integration via Entity Framework Core
 - Migration-based database setup
@@ -81,24 +80,16 @@ dotnet run
 Navigate to `https://localhost:5001` (or the port shown in terminal).
 You should see the **Bookstore home page**.
 
-## 🔑 Authentication
-
-- Register a new user via `/Identity/Account/Register`
-- Login via `/Identity/Account/Login`
-- Roles and admin features are available via seeding (optional)
-
 ## 🛠️ Technologies Used
 
 - **ASP.NET Core MVC 8**
 - **Entity Framework Core 8**
 - **SQL Server**
-- **Identity** for authentication and authorization
 - **Razor Views** (HTML + Bootstrap CSS)
 
 ## 📦 Packages Included
 
 ```xml
-Microsoft.AspNetCore.Authentication.Cookies
 Microsoft.AspNetCore.Identity.EntityFrameworkCore
 Microsoft.EntityFrameworkCore.SqlServer
 Microsoft.EntityFrameworkCore.Tools
@@ -106,15 +97,13 @@ Microsoft.EntityFrameworkCore.Tools
 
 ## 🚀 How to Test the Project
 
-1. **Register** a new account or log in as seeded admin
-2. **Add** books, authors, and categories
-3. **Create** orders and test CRUD operations
-4. **Explore** different pages using MVC routing:
+1. **Add** books, authors, and categories
+2. **Create** orders and test CRUD operations
+3. **Explore** different pages using MVC routing:
    - `/Books/Index` → List all books
    - `/Books/Create` → Add a new book
    - `/Authors/Index` → List authors
    - `/Categories/Index` → List categories
-5. **Test** user authentication and role-based pages
 
 ## 📜 Important Notes
 
