@@ -25,6 +25,17 @@ BookstoreMVC/
 └── BookstoreMVC.csproj   # Project file
 ```
 
+## 🐳 Quick Start with Docker
+
+```bash
+git clone https://github.com/ShroukOuda/BookStore.git
+cd BookStore
+```
+```bash
+docker compose up -d --build
+#Navigate to: http://localhost:8080
+```
+
 ## ⚙️ Prerequisites
 
 - .NET 8 SDK
