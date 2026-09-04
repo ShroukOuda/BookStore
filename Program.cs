@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace BookStore
 {
     public class Program
@@ -16,6 +18,18 @@ namespace BookStore
             builder.Services.AddScoped<IBooksService, BooksService>();
 
             var app = builder.Build();
+
+            var autoMigrate = builder.Configuration.GetValue<bool>("AUTO_MIGRATE");
+
+            if (autoMigrate)
+            {
+                using var scope = app.Services.CreateScope();
+
+                var dbContext = scope.ServiceProvider
+                    .GetRequiredService<ApplicationDbContext>();
+
+                dbContext.Database.Migrate();
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
