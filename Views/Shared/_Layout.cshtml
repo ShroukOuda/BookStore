@@ -3,48 +3,295 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BookStore | @ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BookStore.styles.css" asp-append-version="true" />
+
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico?v=2" />
+    <title>@ViewData["Title"]</title>
+    
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+
+    <!-- Application styles -->
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/BookStore.styles.css"
+          asp-append-version="true" />
 </head>
-<body>
+
+<body class="bg-light">
+
+    <!-- Navbar -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+        <nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm">
+            <div class="container">
+
+                <!-- Brand -->
+                <a class="navbar-brand d-flex align-items-center gap-2 fw-bold fs-4"
+                   asp-area=""
+                   asp-controller="Home"
+                   asp-action="Index">
+
+                    <span class="bg-primary text-white rounded-3 px-2 py-1">
+                        <i class="bi bi-book"></i>
+                    </span>
+
+                    <span>
+                        Book<span class="text-primary">Store</span>
+                    </span>
+
+                </a>
+
+
+                <!-- Mobile Toggle -->
+                <button class="navbar-toggler border-0 shadow-none"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <i class="bi bi-list fs-2"></i>
+
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item d-inline-flex justify-content-between">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Authors" asp-action="Index">Authors</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+
+
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse"
+                     id="mainNavbar">
+
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-2">
+
+                        <!-- Home -->
+                        <li class="nav-item">
+                            <a class="nav-link px-3"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="Index">
+
+                                <i class="bi bi-house me-1"></i>
+                                Home
+
+                            </a>
                         </li>
-                        
+
+
+                        <!-- Books -->
+                        <li class="nav-item">
+                            <a class="nav-link px-3"
+                               asp-area=""
+                               asp-controller="Books"
+                               asp-action="Index">
+
+                                <i class="bi bi-book me-1"></i>
+                                Books
+
+                            </a>
+                        </li>
+
+
+                        <!-- Authors -->
+                        <li class="nav-item">
+                            <a class="nav-link px-3"
+                               asp-area=""
+                               asp-controller="Authors"
+                               asp-action="Index">
+
+                                <i class="bi bi-people me-1"></i>
+                                Authors
+
+                            </a>
+                        </li>
+
+
+                        <!-- Categories -->
+                        <li class="nav-item">
+                            <a class="nav-link px-3"
+                               asp-area=""
+                               asp-controller="Categories"
+                               asp-action="Index">
+
+                                <i class="bi bi-grid me-1"></i>
+                                Categories
+
+                            </a>
+                        </li>
+
                     </ul>
+
+
+                    <!-- Right Side -->
+                    <div class="d-flex align-items-center gap-2">
+
+                        <a asp-controller="Books"
+                           asp-action="Index"
+                           class="btn btn-primary rounded-3 px-3">
+
+                            <i class="bi bi-search me-1"></i>
+                            Explore Books
+
+                        </a>
+
+                    </div>
+
                 </div>
+
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-            
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - BookStore - Shrouq Ouda - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+    <!-- Main Content -->
+    <main role="main" class="container py-5">
+
+        @RenderBody()
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-5">
+
+        <div class="container py-5">
+
+            <div class="row g-4">
+
+                <!-- Brand -->
+                <div class="col-lg-5">
+
+                    <a class="text-white text-decoration-none
+                              d-flex align-items-center gap-2
+                              fw-bold fs-4 mb-3"
+                       asp-controller="Home"
+                       asp-action="Index">
+
+                        <span class="bg-primary rounded-3 px-2 py-1">
+                            <i class="bi bi-book"></i>
+                        </span>
+
+                        BookStore
+
+                    </a>
+
+                    <p class="text-white-50 mb-0"
+                       style="max-width: 420px;">
+
+                        A simple and organized book management system
+                        for exploring books, authors, and categories.
+
+                    </p>
+
+                </div>
+
+
+                <!-- Quick Links -->
+                <div class="col-6 col-lg-3">
+
+                    <h6 class="fw-bold mb-3">
+                        Explore
+                    </h6>
+
+                    <ul class="list-unstyled">
+
+                        <li class="mb-2">
+                            <a class="text-white-50 text-decoration-none"
+                               asp-controller="Books"
+                               asp-action="Index">
+
+                                Books
+
+                            </a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a class="text-white-50 text-decoration-none"
+                               asp-controller="Authors"
+                               asp-action="Index">
+
+                                Authors
+
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="text-white-50 text-decoration-none"
+                               asp-controller="Categories"
+                               asp-action="Index">
+
+                                Categories
+
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- Project -->
+                <div class="col-6 col-lg-4">
+
+                    <h6 class="fw-bold mb-3">
+                        BookStore
+                    </h6>
+
+                    <p class="text-white-50 small mb-0">
+
+                        Manage and organize your book collection
+                        with an easy-to-use interface.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <hr class="border-secondary my-4" />
+
+
+            <!-- Bottom Footer -->
+            <div class="d-flex flex-column flex-md-row
+                        justify-content-between
+                        align-items-center gap-2">
+
+                <small class="text-white-50">
+                    &copy; @DateTime.Now.Year BookStore
+                    · Shrouq Ouda
+                </small>
+
+                <a class="text-white-50 text-decoration-none small"
+                   asp-controller="Home"
+                   asp-action="Privacy">
+
+                    Privacy Policy
+
+                </a>
+
+            </div>
+
         </div>
+
     </footer>
+
+
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="~/js/site.js"
+            asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

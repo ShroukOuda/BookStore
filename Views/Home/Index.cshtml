@@ -1,8 +1,362 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "BookStore";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero Section -->
+<section class="bg-light py-5">
+    <div class="container py-5">
+        <div class="row align-items-center g-5">
+
+            <!-- Hero Content -->
+            <div class="col-lg-7">
+
+                <span class="badge bg-primary-subtle text-primary px-3 py-2 mb-3">
+                    <i class="bi bi-book me-1"></i>
+                    Book Management System
+                </span>
+
+                <h1 class="display-3 fw-bold mb-4">
+                    Discover.
+                    <span class="text-primary">Manage.</span>
+                    Explore.
+                </h1>
+
+                <p class="lead text-secondary mb-4">
+                    A simple and organized platform to explore books,
+                    authors, and categories — all in one place.
+                </p>
+
+                <div class="d-flex gap-3 flex-wrap">
+
+                    <a asp-controller="Books"
+                       asp-action="Index"
+                       class="btn btn-primary btn-lg px-4">
+                        <i class="bi bi-book me-2"></i>
+                        Explore Books
+                    </a>
+
+                    <a asp-controller="Authors"
+                       asp-action="Index"
+                       class="btn btn-outline-dark btn-lg px-4">
+                        <i class="bi bi-people me-2"></i>
+                        View Authors
+                    </a>
+
+                </div>
+            </div>
+
+
+            <!-- Hero Illustration -->
+            <div class="col-lg-5">
+                <div class="text-center">
+
+                    <div class="bg-primary text-white rounded-4 shadow-lg
+                                d-inline-flex flex-column
+                                justify-content-center align-items-center
+                                p-5"
+                         style="min-width: 280px; min-height: 360px;">
+
+                        <i class="bi bi-book-half display-1 mb-4"></i>
+
+                        <h2 class="fw-bold mb-2">
+                            BookStore
+                        </h2>
+
+                        <p class="mb-0 opacity-75">
+                            Manage your library
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Main Sections -->
+<section class="py-5">
+    <div class="container py-4">
+
+        <div class="text-center mb-5">
+
+            <span class="text-primary fw-bold text-uppercase small">
+                Explore BookStore
+            </span>
+
+            <h2 class="display-6 fw-bold mt-2">
+                Everything Organized in One Place
+            </h2>
+
+            <p class="text-secondary mx-auto"
+               style="max-width: 650px;">
+                Browse and manage your books, authors, and categories
+                through a clean and simple interface.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- Books -->
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                    <div class="card-body p-4">
+
+                        <div class="bg-primary bg-opacity-10 text-primary
+                                    rounded-3 d-inline-flex p-3 mb-4">
+                            <i class="bi bi-book fs-3"></i>
+                        </div>
+
+                        <h4 class="fw-bold">
+                            Books
+                        </h4>
+
+                        <p class="text-secondary">
+                            Browse your collection, search and filter
+                            books, view details, and manage your library.
+                        </p>
+
+                        <a asp-controller="Books"
+                           asp-action="Index"
+                           class="btn btn-outline-primary">
+                            View Books
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Authors -->
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                    <div class="card-body p-4">
+
+                        <div class="bg-primary bg-opacity-10 text-primary
+                                    rounded-3 d-inline-flex p-3 mb-4">
+                            <i class="bi bi-person-lines-fill fs-3"></i>
+                        </div>
+
+                        <h4 class="fw-bold">
+                            Authors
+                        </h4>
+
+                        <p class="text-secondary">
+                            Explore authors and manage the relationships
+                            between authors and their books.
+                        </p>
+
+                        <a asp-controller="Authors"
+                           asp-action="Index"
+                           class="btn btn-outline-primary">
+                            View Authors
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Categories -->
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                    <div class="card-body p-4">
+
+                        <div class="bg-primary bg-opacity-10 text-primary
+                                    rounded-3 d-inline-flex p-3 mb-4">
+                            <i class="bi bi-grid-3x3-gap fs-3"></i>
+                        </div>
+
+                        <h4 class="fw-bold">
+                            Categories
+                        </h4>
+
+                        <p class="text-secondary">
+                            Organize books into categories and make
+                            your collection easier to explore.
+                        </p>
+
+                        <a asp-controller="Categories"
+                           asp-action="Index"
+                           class="btn btn-outline-primary">
+                            View Categories
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- CRUD Highlight -->
+<section class="bg-light py-5">
+
+    <div class="container py-4">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6">
+
+                <span class="text-primary fw-bold text-uppercase small">
+                    Simple Management
+                </span>
+
+                <h2 class="display-6 fw-bold mt-2 mb-4">
+                    Keep Your Book Collection Organized
+                </h2>
+
+                <p class="text-secondary lead">
+                    BookStore provides the essential tools needed
+                    to maintain your library efficiently.
+                </p>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="row g-3">
+
+                    <div class="col-6">
+                        <div class="bg-white rounded-4 shadow-sm p-4 text-center h-100">
+
+                            <i class="bi bi-plus-circle text-primary fs-2"></i>
+
+                            <h5 class="fw-bold mt-3">
+                                Create
+                            </h5>
+
+                            <p class="small text-secondary mb-0">
+                                Add new books, authors and categories.
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-6">
+                        <div class="bg-white rounded-4 shadow-sm p-4 text-center h-100">
+
+                            <i class="bi bi-pencil-square text-primary fs-2"></i>
+
+                            <h5 class="fw-bold mt-3">
+                                Update
+                            </h5>
+
+                            <p class="small text-secondary mb-0">
+                                Keep existing information up to date.
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-6">
+                        <div class="bg-white rounded-4 shadow-sm p-4 text-center h-100">
+
+                            <i class="bi bi-eye text-primary fs-2"></i>
+
+                            <h5 class="fw-bold mt-3">
+                                Explore
+                            </h5>
+
+                            <p class="small text-secondary mb-0">
+                                Search, filter and view book details.
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-6">
+                        <div class="bg-white rounded-4 shadow-sm p-4 text-center h-100">
+
+                            <i class="bi bi-trash text-primary fs-2"></i>
+
+                            <h5 class="fw-bold mt-3">
+                                Manage
+                            </h5>
+
+                            <p class="small text-secondary mb-0">
+                                Remove outdated records when needed.
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Final CTA -->
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="bg-primary text-white rounded-4 shadow p-4 p-lg-5">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-8">
+
+                    <span class="text-white-50 text-uppercase fw-bold small">
+                        Your Library
+                    </span>
+
+                    <h2 class="display-6 fw-bold mt-2">
+                        Ready to explore your books?
+                    </h2>
+
+                    <p class="lead mb-0 opacity-75">
+                        Browse your collection and discover
+                        books, authors, and categories.
+                    </p>
+
+                </div>
+
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+                    <a asp-controller="Books"
+                       asp-action="Index"
+                       class="btn btn-light btn-lg px-4">
+
+                        Browse Books
+                        <i class="bi bi-arrow-right ms-2"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
